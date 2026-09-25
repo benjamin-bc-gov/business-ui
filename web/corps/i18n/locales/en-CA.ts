@@ -13,6 +13,10 @@ export default {
     }
   },
   label: {
+    agmLocation: 'AGM Location',
+    agmYear: 'AGM Year',
+    certify: 'Certify',
+    reason: 'Reason',
     addCustodian: 'Add Custodian',
     addDirector: 'Add Director',
     addLiquidator: 'Add Liquidator',
@@ -39,6 +43,16 @@ export default {
     sixMonths: '6 Months'
   },
   page: {
+    agmLocationChange: {
+      certifyDescription: 'Enter the legal name of the person authorized to complete and submit this filing.',
+      feeCode: 'AGMLC',
+      feeLabel: 'AGM Location Change',
+      h1: 'AGM Location Change',
+      helpLabel: 'Help with Annual General Meeting Location Change',
+      locationChangeDetail: 'Location Change Detail',
+      locationChangeDetailDesc: 'Enter the calendar year the AGM is for and the AGM location outside B.C.',
+      title: 'AGM Location Change - BC Registries and Online Services'
+    },
     correction: {
       desc: 'This filing will correct the information in the original {boldStart}{filing-type}{boldEnd} filing from {boldStart}{filing-date}{boldEnd}. Changes made in this correction will be applied to the business record.',
       feeCode: 'CRCTN',
@@ -85,6 +99,7 @@ export default {
     formatYYYYMMDD: 'Format: YYYY-MM-DD',
     liquidatorsMustBeCorrect: 'Liquidator information must be correct before filing your application.',
     nameTranslationsDescription: 'Name translations must use the Latin Alphabet (English, French, etc.). Names that use other writing systems must spell the name phonetically in English or French.',
+    agmLocationHint: 'Enter the AGM location not in B.C. Include the city, province or state equivalent, and country. E.g. "Red Deer, Alberta, Canada"',
     noChangesToSave: 'There are no changes to save.',
     noChangesToSubmit: 'There are no changes to submit.',
     officeAddressesMustBeCorrect: 'Office addresses must be correct before filing your application.',
@@ -95,6 +110,14 @@ export default {
     yesCreateLedgerItemForDissolution: 'Yes create a ledger item for this delay of dissolution'
   },
   validation: {
+    agmLocationChange: {
+      yearRequired: 'AGM year is required.',
+      yearInvalid: 'Please enter a valid 4-digit year.',
+      reasonRequired: 'Reason is required.',
+      reasonMax: 'Must be 2000 characters or less.',
+      locationRequired: 'AGM location is required.',
+      locationMax: 'Must be 400 characters or less.'
+    },
     date: {
       invalid: 'Please enter a valid date.',
       invalidFormat: 'Date must be in YYYY-MM-DD format.',
