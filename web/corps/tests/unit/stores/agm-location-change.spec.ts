@@ -35,13 +35,15 @@ const mockBusiness = {
 }
 mockNuxtImport('useBusinessStore', () => () => ({
   business: mockBusiness,
-  businessIdentifier: identifier
+  businessIdentifier: identifier,
+  isBaseCompany: vi.fn().mockReturnValue(true)
 }))
 
 mockNuxtImport('useFilingModals', () => () => ({
   openGetDraftFilingErrorModal: vi.fn(),
   openInitFilingErrorModal: vi.fn(),
-  openSaveFilingErrorModal: vi.fn()
+  openSaveFilingErrorModal: vi.fn(),
+  openFilingNotAllowedErrorModal: vi.fn()
 }))
 
 mockNuxtImport('useConnectAuth', () => () => ({ authUser: { value: { fullName } } }))

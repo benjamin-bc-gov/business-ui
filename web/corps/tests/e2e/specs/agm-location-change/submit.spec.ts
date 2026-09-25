@@ -45,7 +45,7 @@ test.describe('AGM Location Change - Filing Submit', () => {
 
     await page.getByLabel('AGM Year').fill('2025')
     await page.getByLabel('Reason').fill('Shareholders are located outside BC.')
-    await page.getByLabel('AGM Location').fill('Calgary, Alberta, Canada')
+    await page.getByLabel('AGM Location', { exact: true }).fill('Calgary, Alberta, Canada')
     await page.getByRole('checkbox', { name: /i certify/i }).check()
 
     const submitRequest = waitForFilingPost(page)
@@ -69,8 +69,8 @@ test.describe('AGM Location Change - Filing Submit', () => {
 
     await page.getByLabel('AGM Year').fill('2025')
     await page.getByLabel('Reason').fill('Shareholders are located outside BC.')
-    await page.getByLabel('AGM Location').fill('Calgary, Alberta, Canada')
-    await page.getByTestId('folio-number-input').fill('my-folio-123')
+    await page.getByLabel('AGM Location', { exact: true }).fill('Calgary, Alberta, Canada')
+    await page.getByTestId('folio-input').fill('my-folio-123')
     await page.getByRole('checkbox', { name: /i certify/i }).check()
 
     const submitRequest = waitForFilingPost(page)
@@ -89,10 +89,10 @@ test.describe('AGM Location Change - Filing Submit', () => {
 
       await page.getByLabel('AGM Year').fill('2025')
       await page.getByLabel('Reason').fill('Staff no-fee submission.')
-      await page.getByLabel('AGM Location').fill('Seattle, Washington, USA')
+      await page.getByLabel('AGM Location', { exact: true }).fill('Seattle, Washington, USA')
       await page.getByRole('radio', { name: 'No Fee' }).click()
 
-      const submitRequest = waitForFilingPut(page, draftId)
+      const submitRequest = waitForFilingPost(page)
       await page.getByRole('button', { name: 'Submit' }).click()
       const request = await submitRequest
       const body = request.postDataJSON()
@@ -113,14 +113,14 @@ test.describe('AGM Location Change - Filing Submit', () => {
 
       await page.getByLabel('AGM Year').fill('2025')
       await page.getByLabel('Reason').fill('Staff BCOL submission.')
-      await page.getByLabel('AGM Location').fill('Seattle, Washington, USA')
+      await page.getByLabel('AGM Location', { exact: true }).fill('Seattle, Washington, USA')
       await page.getByRole('radio', { name: 'BC OnLine' }).click()
       await page.getByTestId('bcolnumberinput').fill('123456')
       await page.getByTestId('datnumberinput').fill('C1234567')
       await page.getByTestId('folionumber').fill('folio-staff-123')
       await page.getByRole('checkbox', { name: 'Priority (Add $100.00)' }).check()
 
-      const submitRequest = waitForFilingPut(page, draftId)
+      const submitRequest = waitForFilingPost(page)
       await page.getByRole('button', { name: 'Submit' }).click()
       const request = await submitRequest
       const body = request.postDataJSON()
@@ -142,7 +142,7 @@ test.describe('AGM Location Change - Filing Submit', () => {
 
       await page.getByLabel('AGM Year').fill('2025')
       await page.getByLabel('Reason').fill('Draft reason for save.')
-      await page.getByLabel('AGM Location').fill('Vancouver, British Columbia, Canada')
+      await page.getByLabel('AGM Location', { exact: true }).fill('Vancouver, British Columbia, Canada')
       // allow the debounced 'hasChanges' watcher to register the edits before saving
       await page.waitForTimeout(200)
 

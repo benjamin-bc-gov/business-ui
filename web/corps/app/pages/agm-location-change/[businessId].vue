@@ -58,7 +58,7 @@ async function submitFiling() {
 async function saveFiling(enableUnsavedChangesBlock = true) {
   try {
     if (enableUnsavedChangesBlock && !canSave()) {
-      return setBtnCtrlAlert(t('text.noChangesToSave'), 'right', 0)
+      return setBtnCtrlAlert(t('text.noChangesToSave'), 'left')
     }
     await store.submit(false)
     revokeBeforeUnload()
@@ -204,6 +204,7 @@ useFilingPageWatcher({
       <FormFolio
         v-if="!store.isStaff"
         v-model="(store.formState as any).folio"
+        data-testid="form-section-folio-number"
         name="folio"
         :order="2"
       />
@@ -212,6 +213,7 @@ useFilingPageWatcher({
       <FormCertify
         v-if="!store.isStaff"
         v-model="(store.formState as any).certify"
+        data-testid="form-section-certify"
         name="certify"
         :order="3"
       />

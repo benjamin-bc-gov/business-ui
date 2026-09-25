@@ -46,7 +46,7 @@ test.describe('AGM Location Change - Page init', () => {
     await expect(page.getByTestId('form-section-location-change-detail')).toBeVisible()
     await expect(page.getByLabel('AGM Year')).toBeVisible()
     await expect(page.getByLabel('Reason')).toBeVisible()
-    await expect(page.getByLabel('AGM Location')).toBeVisible()
+    await expect(page.getByLabel('AGM Location', { exact: true })).toBeVisible()
 
     // Folio and Certify sections visible for non-staff
     await expect(page.getByTestId('form-section-folio-number')).toBeVisible()
@@ -55,7 +55,7 @@ test.describe('AGM Location Change - Page init', () => {
     // Fields start empty
     await expect(page.getByLabel('AGM Year')).toHaveValue('')
     await expect(page.getByLabel('Reason')).toHaveValue('')
-    await expect(page.getByLabel('AGM Location')).toHaveValue('')
+    await expect(page.getByLabel('AGM Location', { exact: true })).toHaveValue('')
   })
 
   test('should display staff payment section for staff', async ({ page }) => {
@@ -87,7 +87,7 @@ test.describe('AGM Location Change - Page init', () => {
 
     await expect(page.getByLabel('AGM Year')).toHaveValue('2025')
     await expect(page.getByLabel('Reason')).toHaveValue('Shareholders are located outside BC.')
-    await expect(page.getByLabel('AGM Location')).toHaveValue('Calgary, Alberta, Canada')
+    await expect(page.getByLabel('AGM Location', { exact: true })).toHaveValue('Calgary, Alberta, Canada')
   })
 
   test('should hydrate folio number from a resumed draft', async ({ page }) => {
@@ -99,7 +99,7 @@ test.describe('AGM Location Change - Page init', () => {
     await page.waitForLoadState('networkidle')
     await expect(page.getByText(/loading/i)).not.toBeVisible({ timeout: 15000 })
 
-    await expect(page.getByTestId('folio-number-input')).toHaveValue('folio-456')
+    await expect(page.getByTestId('folio-input')).toHaveValue('folio-456')
   })
 
   test('should hydrate staff payment from a resumed draft', async ({ page }) => {

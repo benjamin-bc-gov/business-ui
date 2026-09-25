@@ -5,6 +5,7 @@ export const useAgmLocationChangeStore = defineStore('agm-location-change-store'
 
   const service = useBusinessService()
   const businessStore = useBusinessStore()
+  const modal = useFilingModals()
 
   const isStaff = useIsStaff()
 
@@ -25,6 +26,12 @@ export const useAgmLocationChangeStore = defineStore('agm-location-change-store'
       undefined,
       draftId
     )
+
+    if (businessStore.business && !businessStore.isBaseCompany()) {
+      initializing.value = false
+      await modal.openFilingNotAllowedErrorModal()
+      return
+    }
 
     if (draftFiling?.filing?.agmLocationChange) {
       draftFilingState.value = draftFiling
