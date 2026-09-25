@@ -64,25 +64,6 @@ test.describe('AGM Location Change - Filing Submit', () => {
     await assertFinalRedirect(page)
   })
 
-  test('includes folio number in the header for non-staff', async ({ page }) => {
-    await gotoAgmPage(page)
-
-    await page.getByLabel('AGM Year').fill('2025')
-    await page.getByLabel('Reason').fill('Shareholders are located outside BC.')
-    await page.getByLabel('AGM Location', { exact: true }).fill('Calgary, Alberta, Canada')
-    await page.getByTestId('folio-input').fill('my-folio-123')
-    await page.getByRole('checkbox', { name: /i certify/i }).check()
-
-    const submitRequest = waitForFilingPost(page)
-    await page.getByRole('button', { name: 'Submit' }).click()
-    const request = await submitRequest
-    const body = request.postDataJSON()
-
-    expect(body.filing.header.folioNumber).toBe('my-folio-123')
-
-    await assertFinalRedirect(page)
-  })
-
   test.describe('Staff payment variants', () => {
     test('No Fee - sets waiveFees on submit', async ({ page }) => {
       await gotoAgmPage(page, 'STAFF')

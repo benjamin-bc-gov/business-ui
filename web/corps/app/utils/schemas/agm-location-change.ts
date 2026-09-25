@@ -22,8 +22,7 @@ export function getAgmLocationChangeSchema(isStaff: boolean) {
   }
 
   return base.extend({
-    certify: getCertifySchema().default(() => ({ isCertified: false })),
-    folio: getFolioSchema().default(() => ({ folioNumber: '' }))
+    certify: getCertifySchema().default(() => ({ isCertified: false }))
   })
 }
 

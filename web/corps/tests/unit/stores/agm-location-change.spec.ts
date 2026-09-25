@@ -124,19 +124,6 @@ describe('useAgmLocationChangeStore', () => {
       expect(store.initializing).toBe(false)
     })
 
-    it('should hydrate folio number from the draft header for non-staff', async () => {
-      mockInitFiling.mockResolvedValue({
-        draftFiling: getDraftMock(
-          { year: '2025', reason: 'Reason', agmLocation: 'Location' },
-          { folioNumber: 'test-folio' }
-        )
-      })
-
-      await store.init(identifier, String(draftFilingId))
-
-      expect((store.formState as any).folio?.folioNumber).toBe('test-folio')
-    })
-
     it('should hydrate staff payment from the draft header for staff', async () => {
       mockIsStaff.value = true
       store.$reset()
@@ -258,15 +245,6 @@ describe('useAgmLocationChangeStore', () => {
       expect(header.name).toBe(FilingType.AGM_LOCATION_CHANGE)
       expect(header.certifiedBy).toBe(fullName)
       expect(header.date).toBeTruthy()
-    })
-
-    it('should include the folio number in the header for non-staff', async () => {
-      await initAndEdit()
-      ;(store.formState as any).folio = { folioNumber: 'my-folio' }
-
-      await store.submit(true)
-
-      expect(getPayload().filing.header.folioNumber).toBe('my-folio')
     })
 
     it('should include staff payment in the header for staff', async () => {

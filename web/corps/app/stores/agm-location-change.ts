@@ -42,10 +42,6 @@ export const useAgmLocationChangeStore = defineStore('agm-location-change-store'
 
       if (isStaff.value) {
         formState.staffPayment = formatStaffPaymentUi(draftFiling.filing.header)
-      } else {
-        if (formState.folio) {
-          formState.folio.folioNumber = draftFiling.filing.header.folioNumber ?? ''
-        }
       }
     }
 
@@ -66,10 +62,7 @@ export const useAgmLocationChangeStore = defineStore('agm-location-change-store'
       FilingType.AGM_LOCATION_CHANGE,
       { agmLocationChange: agmLocationChangePayload },
       {
-        ...(isStaff.value
-          ? formatStaffPaymentApi(formState.staffPayment!)
-          : { folioNumber: (formState as any).folio?.folioNumber }
-        )
+        ...(isStaff.value ? formatStaffPaymentApi(formState.staffPayment!) : {})
       }
     )
 

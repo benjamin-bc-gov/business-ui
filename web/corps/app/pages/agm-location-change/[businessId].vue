@@ -5,7 +5,6 @@ const { t } = useI18n()
 const store = useAgmLocationChangeStore()
 const { initializing } = storeToRefs(store)
 const route = useRoute()
-const showHelp = ref(false)
 const modal = useFilingModals()
 const { handleButtonLoading, setAlertText: setBtnCtrlAlert } = useConnectButtonControl()
 const urlParams = useUrlSearchParams('history')
@@ -111,15 +110,7 @@ useFilingPageWatcher({
       <!-- Title + Help -->
       <div class="space-y-4">
         <h1>{{ filingText.h1 }}</h1>
-        <UButton
-          variant="link"
-          color="primary"
-          icon="i-mdi-help-circle-outline"
-          :label="$t('page.agmLocationChange.helpLabel')"
-          :padded="false"
-          @click="showHelp = !showHelp"
-        />
-        <div v-if="showHelp" class="space-y-4">
+        <HelpExpansion :label="$t('page.agmLocationChange.helpLabel')">
           <p>
             Generally, company meetings must be in British Columbia (BC). However, there are exceptions to
             this rule. A company must request a location change if the meeting will be fully or partially
@@ -136,7 +127,7 @@ useFilingPageWatcher({
               ordinary resolution, as the case may be.
             </li>
           </ul>
-        </div>
+        </HelpExpansion>
       </div>
 
       <!-- Section 1: Location Change Detail -->
@@ -201,22 +192,13 @@ useFilingPageWatcher({
         </ConnectFormFieldWrapper>
       </ConnectFieldset>
 
-      <!-- Folio Number (non-staff) -->
-      <FormFolio
-        v-if="!store.isStaff"
-        v-model="(store.formState as any).folio"
-        data-testid="form-section-folio-number"
-        name="folio"
-        :order="2"
-      />
-
       <!-- Certify (non-staff) / Staff Payment (staff) -->
       <FormCertify
         v-if="!store.isStaff"
         v-model="(store.formState as any).certify"
         data-testid="form-section-certify"
         name="certify"
-        :order="3"
+        :order="2"
       />
       <StaffPaymentFieldset
         v-if="store.isStaff"

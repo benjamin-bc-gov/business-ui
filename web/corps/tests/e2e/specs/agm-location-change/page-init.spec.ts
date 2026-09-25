@@ -48,8 +48,7 @@ test.describe('AGM Location Change - Page init', () => {
     await expect(page.getByLabel('Reason')).toBeVisible()
     await expect(page.getByLabel('AGM Location', { exact: true })).toBeVisible()
 
-    // Folio and Certify sections visible for non-staff
-    await expect(page.getByTestId('form-section-folio-number')).toBeVisible()
+    // Certify section visible for non-staff
     await expect(page.getByTestId('form-section-certify')).toBeVisible()
 
     // Fields start empty
@@ -68,8 +67,7 @@ test.describe('AGM Location Change - Page init', () => {
     await expect(page.getByTestId('form-section-location-change-detail')).toBeVisible()
     await expect(page.getByTestId('staff-payment-section')).toBeVisible()
 
-    // Folio and Certify not visible for staff
-    await expect(page.getByTestId('form-section-folio-number')).not.toBeVisible()
+    // Certify not visible for staff
     await expect(page.getByTestId('form-section-certify')).not.toBeVisible()
   })
 
@@ -88,18 +86,6 @@ test.describe('AGM Location Change - Page init', () => {
     await expect(page.getByLabel('AGM Year')).toHaveValue('2025')
     await expect(page.getByLabel('Reason')).toHaveValue('Shareholders are located outside BC.')
     await expect(page.getByLabel('AGM Location', { exact: true })).toHaveValue('Calgary, Alberta, Canada')
-  })
-
-  test('should hydrate folio number from a resumed draft', async ({ page }) => {
-    await setupAgmLocationChangePageWithDraft(page, identifier, draftId, AGMLC, 'PREMIUM', {
-      agmLocationChange: { year: '2025', reason: 'Some reason', agmLocation: 'Calgary, Alberta, Canada' },
-      header: { folioNumber: 'folio-456' }
-    })
-    await navigateToAgmLocationChangePage(page, identifier, draftId)
-    await page.waitForLoadState('networkidle')
-    await expect(page.getByText(/loading/i)).not.toBeVisible({ timeout: 15000 })
-
-    await expect(page.getByTestId('folio-input')).toHaveValue('folio-456')
   })
 
   test('should hydrate staff payment from a resumed draft', async ({ page }) => {

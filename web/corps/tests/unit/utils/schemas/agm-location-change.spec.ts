@@ -12,7 +12,6 @@ describe('getAgmLocationChangeSchema (defaults)', () => {
       expect(result.data!.reason).toBe('')
       expect(result.data!.agmLocation).toBe('')
       expect((result.data as any).certify).toEqual({ isCertified: false })
-      expect((result.data as any).folio).toEqual({ folioNumber: '' })
     })
 
     it('should not include staffPayment', () => {
@@ -37,12 +36,11 @@ describe('getAgmLocationChangeSchema (defaults)', () => {
       }))
     })
 
-    it('should not include certify or folio', () => {
+    it('should not include certify', () => {
       const result = schema.safeParse({})
 
       expect(result.success).toBe(true)
       expect((result.data as any).certify).toBeUndefined()
-      expect((result.data as any).folio).toBeUndefined()
     })
   })
 })
