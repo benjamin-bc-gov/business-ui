@@ -5,6 +5,7 @@ const { t } = useI18n()
 const store = useAgmLocationChangeStore()
 const { initializing } = storeToRefs(store)
 const route = useRoute()
+const showHelp = ref(false)
 const modal = useFilingModals()
 const { handleButtonLoading, setAlertText: setBtnCtrlAlert } = useConnectButtonControl()
 const urlParams = useUrlSearchParams('history')
@@ -110,36 +111,32 @@ useFilingPageWatcher({
       <!-- Title + Help -->
       <div class="space-y-4">
         <h1>{{ filingText.h1 }}</h1>
-        <UAccordion
-          :items="[{
-            label: $t('page.agmLocationChange.helpLabel'),
-            slot: 'help'
-          }]"
-        >
-          <template #help>
-            <div class="p-4 space-y-4">
-              <h3 class="font-bold text-center">
-                {{ $t('page.agmLocationChange.h1') }} Help
-              </h3>
-              <p>
-                Generally, company meetings must be in British Columbia (BC). However, there are exceptions to
-                this rule. A company must request a location change if the meeting will be fully or partially
-                in-person and none of the exceptions listed below apply. Partially in-person meetings combine
-                both in-person and online participation. The location change request only applies to
-                the in-person participants.
-              </p>
-              <p>Exceptions to the requirement for a location change request include the following:</p>
-              <ul class="list-disc pl-6 space-y-1">
-                <li>The meeting will be fully online;</li>
-                <li>The company's articles permit a location outside BC;</li>
-                <li>
-                  Nothing in the articles restrict a location change approved by resolution or by
-                  ordinary resolution, as the case may be.
-                </li>
-              </ul>
-            </div>
-          </template>
-        </UAccordion>
+        <UButton
+          variant="link"
+          color="primary"
+          icon="i-mdi-help-circle-outline"
+          :label="$t('page.agmLocationChange.helpLabel')"
+          :padded="false"
+          @click="showHelp = !showHelp"
+        />
+        <div v-if="showHelp" class="space-y-4">
+          <p>
+            Generally, company meetings must be in British Columbia (BC). However, there are exceptions to
+            this rule. A company must request a location change if the meeting will be fully or partially
+            in-person and none of the exceptions listed below apply. Partially in-person meetings combine
+            both in-person and online participation. The location change request only applies to
+            the in-person participants.
+          </p>
+          <p>Exceptions to the requirement for a location change request include the following:</p>
+          <ul class="list-disc pl-6 space-y-1">
+            <li>The meeting will be fully online;</li>
+            <li>The company's articles permit a location outside BC;</li>
+            <li>
+              Nothing in the articles restrict a location change approved by resolution or by
+              ordinary resolution, as the case may be.
+            </li>
+          </ul>
+        </div>
       </div>
 
       <!-- Section 1: Location Change Detail -->
