@@ -151,53 +151,57 @@ useFilingPageWatcher({
         data-testid="form-section-location-change-detail"
       >
         <!-- AGM Year -->
-        <UFormField
-          name="year"
+        <ConnectFormFieldWrapper
           :label="$t('label.agmYear')"
+          orientation="horizontal"
+          padding-class="xy-default"
           required
         >
-          <UInput
+          <ConnectFormInput
             v-model="store.formState.year"
-            :placeholder="$t('label.agmYear')"
+            name="year"
+            input-id="agm-year-input"
+            :label="$t('label.agmYear')"
             :disabled="initializing"
           />
-        </UFormField>
+        </ConnectFormFieldWrapper>
 
         <UDivider />
 
         <!-- Reason -->
-        <UFormField
-          name="reason"
+        <ConnectFormFieldWrapper
           :label="$t('label.reason')"
+          orientation="horizontal"
+          padding-class="xy-default"
           required
         >
-          <UTextarea
+          <ConnectFormTextarea
             v-model="store.formState.reason"
-            :placeholder="$t('label.reason')"
-            :maxlength="2000"
+            name="reason"
+            input-id="reason-input"
+            :label="$t('label.reason')"
             :disabled="initializing"
-            :rows="4"
           />
-        </UFormField>
+        </ConnectFormFieldWrapper>
 
         <UDivider />
 
         <!-- AGM Location -->
-        <UFormField
-          name="agmLocation"
+        <ConnectFormFieldWrapper
           :label="$t('label.agmLocation')"
+          orientation="horizontal"
+          padding-class="xy-default"
           required
         >
-          <p class="text-sm text-gray-600 mb-2">
-            {{ $t('text.agmLocationHint') }}
-          </p>
-          <UInput
+          <ConnectFormInput
             v-model="store.formState.agmLocation"
-            :placeholder="$t('label.agmLocation')"
-            :maxlength="400"
+            name="agmLocation"
+            input-id="agm-location-input"
+            :label="$t('label.agmLocation')"
             :disabled="initializing"
+            :help="$t('text.agmLocationHint')"
           />
-        </UFormField>
+        </ConnectFormFieldWrapper>
       </ConnectFieldset>
 
       <!-- Folio Number (non-staff) -->
